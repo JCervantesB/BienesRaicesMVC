@@ -15,6 +15,11 @@ class ComposerStaticInitd10812d389b8051c1224c308a3f7d68b
         array (
             'Psr\\Http\\Message\\' => 17,
         ),
+        'M' => 
+        array (
+            'Model\\' => 6,
+            'MVC\\' => 4,
+        ),
         'I' => 
         array (
             'Intervention\\Image\\' => 19,
@@ -23,17 +28,25 @@ class ComposerStaticInitd10812d389b8051c1224c308a3f7d68b
         array (
             'GuzzleHttp\\Psr7\\' => 16,
         ),
-        'A' => 
+        'C' => 
         array (
-            'App\\' => 4,
+            'Controllers\\' => 12,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
+        'Model\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/models',
+        ),
+        'MVC\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/',
         ),
         'Intervention\\Image\\' => 
         array (
@@ -43,9 +56,9 @@ class ComposerStaticInitd10812d389b8051c1224c308a3f7d68b
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'App\\' => 
+        'Controllers\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/classes',
+            0 => __DIR__ . '/../..' . '/controllers',
         ),
     );
 

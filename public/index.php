@@ -1,2 +1,2 @@
 <?php
-echo "Hola mundo";
+require_once __DIR__ . '/../includes/app.php';
