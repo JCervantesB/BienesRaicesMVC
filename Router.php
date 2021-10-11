@@ -10,6 +10,9 @@ class Router {
     public function get($url, $fn) {
         $this->rutasGET[$url] = $fn;
     }
+    public function post($url, $fn) {
+        $this->rutasPOST[$url] = $fn;
+    }
 
     public function comprobarRutas() {
         $urlActual = $_SERVER['PATH_INFO'] ?? '/';
@@ -18,6 +21,8 @@ class Router {
         if($metodo === 'GET') {
             //debuguear($this->rutasGET);
             $fn = $this->rutasGET[$urlActual] ?? null;
+        } else {
+            $fn = $this->rutasPOST[$urlActual] ?? null;
         }
 
         if($fn) {
@@ -42,8 +47,9 @@ class Router {
 
         include __DIR__ . "/views/layout.php";
     }
-    public function e404() {
-        
+
+    //Redireccionar una pagina 404
+    public function e404() {        
         include __DIR__ . "/views/error404.php";
     }
 }

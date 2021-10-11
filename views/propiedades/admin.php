@@ -9,7 +9,7 @@
             }
             ?>
 
-        <a href="/admin/propiedades/crear.php" class="boton boton-verde">Nueva Propiedad</a>
+        <a href="/propiedades/crear" class="boton boton-verde">Nueva Propiedad</a>
         <a href="/admin/vendedores/crear.php" class="boton boton-amarillo">Nuevo(a) Vendedor</a>
         <h2>Propiedades</h2>
         <table class="propiedades">
@@ -39,7 +39,7 @@
                             <!-- <img src="/build/img/trash-alt.svg" class="icono-boton"> -->
                                 
                             </a>
-                            <a href="propiedades/actualizar.php?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">
+                            <a href="/propiedades/actualizar?id=<?php echo $propiedad->id; ?>" class="boton-amarillo-block">
                                 <img src="/build/img/edit.svg" class="icono-boton editar">
                                 Actualizar
                             </a>
