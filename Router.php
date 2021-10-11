@@ -49,7 +49,12 @@ class Router {
     }
 
     //Redireccionar una pagina 404
-    public function e404() {        
+    public function e404() {      
+        ob_start(); // Inicia el almacenamiento en memoria
         include __DIR__ . "/views/error404.php";
+
+        $contenido = ob_get_clean(); // Limpia la memoria
+
+        include __DIR__ . "/views/layout.php";  
     }
 }

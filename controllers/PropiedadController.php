@@ -10,11 +10,15 @@ class PropiedadController {
     public static function index(Router $router) {
 
         $propiedades = Propiedad::all();
+        $vendedores = Vendedor::all();
+
+        //Muestra mensaje condicional
         $resultado = $_GET['resultado'] ?? null;
 
         $router->render('propiedades/admin', [
             'propiedades' => $propiedades,
-            'resultado' => $resultado
+            'resultado' => $resultado,
+            'vendedores' => $vendedores
         ]);
     }
     public static function crear(Router $router) {
@@ -107,5 +111,21 @@ class PropiedadController {
             'errores' => $errores
         ]);
         
+    }
+
+    public static function eliminar() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $id = filter_var($id, FILTER_VALIDATE_INT);
+    
+            //Validar ID
+            if ($id) {
+                $tipo = $_POST['tipo'];
+                if(validarTipoContenido($tipo)){
+                    $propiedad = Propiedad::find($id);
+                    $propiedad->eliminar();
+                }
+            }
+        }
     }
 }
