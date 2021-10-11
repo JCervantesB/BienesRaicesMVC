@@ -1,6 +1,6 @@
 <?php
     
-    use App\Propiedad;
+    use Model\Propiedad;
     //Validad por id Valido
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
