@@ -1,0 +1,20 @@
+{
+    "name": "jcervantes/bienesraices",
+    "description": "Creando un proyecto de bienes raices con POO",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "JCervantesB",
+            "email": "imjcervantes@gmail.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^2.6"
+    }
+}
