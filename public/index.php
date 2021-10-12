@@ -30,5 +30,8 @@ $router->get('/blog', [PaginasController::class, 'blog']);
 $router->get('/entrada', [PaginasController::class, 'entrada']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
+$router->get('/login', [PaginasController::class, 'login']);
+$router->post('/login', [PaginasController::class, 'login']);
+$router->get('/cerrar-sesion', [PaginasController::class, 'cerrar-sesion']);
 
 $router->comprobarRutas();
