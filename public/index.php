@@ -5,6 +5,7 @@ use MVC\Router;
 use Controllers\PropiedadController;
 use Controllers\VendedorController;
 use Controllers\PaginasController;
+use Controllers\LoginController;
 
 $router = new Router();
 // Zona privada
@@ -30,8 +31,10 @@ $router->get('/blog', [PaginasController::class, 'blog']);
 $router->get('/entrada', [PaginasController::class, 'entrada']);
 $router->get('/contacto', [PaginasController::class, 'contacto']);
 $router->post('/contacto', [PaginasController::class, 'contacto']);
-$router->get('/login', [PaginasController::class, 'login']);
-$router->post('/login', [PaginasController::class, 'login']);
-$router->get('/cerrar-sesion', [PaginasController::class, 'cerrar-sesion']);
+
+//Login y autentificacion
+$router->get('/login', [LoginController::class, 'login']);
+$router->post('/login', [LoginController::class, 'login']);
+$router->get('/logout', [LoginController::class, 'logout']);
 
 $router->comprobarRutas();

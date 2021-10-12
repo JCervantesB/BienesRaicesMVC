@@ -7,7 +7,7 @@
         </div>
     <?php endforeach ?>
 
-    <form method="POST" class="formulario">
+    <form method="POST" class="formulario" action="/login">
 
         <fieldset>
             <legend>Email y Password</legend>
