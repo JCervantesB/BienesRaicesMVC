@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd64695b47d8f85787f8e8bad20bd88443bb35d38',
+        'reference' => '15bc86077abce5797dd4322402342e1521840981',
         'name' => 'jcervantes/bienesraices',
         'dev' => true,
     ),
@@ -34,7 +34,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd64695b47d8f85787f8e8bad20bd88443bb35d38',
+            'reference' => '15bc86077abce5797dd4322402342e1521840981',
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(
