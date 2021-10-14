@@ -11,3 +11,6 @@ cd ./BienesRaicesMVC/public
 
 php -S localhost:3000
 ~~~
+
+Entrar a http://localhost:3000/
+
