@@ -3,6 +3,7 @@
 Proyecto Bienes Raices realizado con el paradigma MVC
 
 # Preparando el proyecto
+Cargar la base de datos desde la carpeta db.
 
 ## Se ha añadido la tabla Blog para implentar el blog basico del sitio.
 Es necesario modificar la base de datos.
