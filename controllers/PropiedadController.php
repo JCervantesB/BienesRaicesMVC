@@ -68,6 +68,7 @@ class PropiedadController {
             'errores' => $errores
         ]);
     }
+    
     public static function actualizar(Router $router) {
         $id = validarORedireccionar('/admin');
 

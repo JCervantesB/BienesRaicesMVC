@@ -1,7 +1,7 @@
 <?php
 
 function conectarDB() : mysqli {
-    $db = new mysqli('fdb32.awardspace.net', '3962135_bienesraices', 'J1807881', '3962135_bienesraices');
+    $db = new mysqli('localhost', 'root', 'root', 'bienes_raices');
 
     if(!$db) {
         echo "Error no se pudo conectar";
