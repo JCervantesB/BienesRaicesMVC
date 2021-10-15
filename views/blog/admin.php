@@ -9,7 +9,7 @@
             }
             ?>
 
-        <a href="/propiedades/crear" class="boton boton-verde">Nueva Entrada</a>
+        <a href="/blog/crear" class="boton boton-verde">Nueva Entrada</a>
         <h2>Publicaciones</h2>
         <table class="propiedades">
             <thead>
@@ -30,7 +30,7 @@
                         <td><img src="/imagenes/<?php echo $entrada->imagen; ?>" class="imagen-tabla" alt=""></td>
                         <td><?php echo $entrada->descripcion; ?></td>
                         <td>
-                            <form method="POST" class="w-100" action="/propiedades/eliminar">
+                            <form method="POST" class="w-100" action="/blog/eliminar">
                                 <input type="hidden" name="id" value="<?php echo $entrada->id; ?>">
                                 <input type="hidden" name="tipo" value="propiedad">
                                 <input type="submit" class="boton-rojo-block" value="Eliminar">
@@ -38,7 +38,7 @@
                             <!-- <img src="/build/img/trash-alt.svg" class="icono-boton"> -->
                                 
                             </a>
-                            <a href="/propiedades/actualizar?id=<?php echo $entrada->id; ?>" class="boton-amarillo-block">
+                            <a href="/blog/actualizar?id=<?php echo $entrada->id; ?>" class="boton-amarillo-block">
                                 <img src="/build/img/edit.svg" class="icono-boton editar">
                                 Actualizar
                             </a>

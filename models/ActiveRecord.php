@@ -39,7 +39,11 @@ class ActiveRecord{
         $resultado = self::$db->query($query);
         //Mensaje de éxito o error
         if ($resultado) {
-            header('Location: /admin?resultado=1&tipo='.$this->tipo);
+            if($this->tipo === 'Entrada') {
+                header('Location: /blog/admin?resultado=1&tipo='.$this->tipo);
+            } else {
+                header('Location: /admin?resultado=1&tipo='.$this->tipo);
+            }
         }
     }
 
@@ -58,7 +62,11 @@ class ActiveRecord{
 
         $resultado = self::$db->query($query);
         if ($resultado) {
-            header('Location: /admin?resultado=2&id='.$this->id.'&tipo='.$this->tipo);
+            if($this->tipo === 'Entrada') {
+                header('Location: /blog/admin?resultado=2&id='.$this->id.'&tipo='.$this->tipo);
+            } else {
+                header('Location: /admin?resultado=2&id='.$this->id.'&tipo='.$this->tipo);
+            }
         }
     }
 
@@ -67,7 +75,11 @@ class ActiveRecord{
         $query = " DELETE FROM ". static::$tabla ." WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1 ";
         if (self::$db->query($query)) {
             $this->eliminarImagen();
-            header('Location: /admin?resultado=3&id='.$this->id.'&tipo='.$this->tipo);
+            if($this->tipo === 'Entrada') {
+                header('Location: /blog/admin?resultado=3&id='.$this->id.'&tipo='.$this->tipo);
+            } else {
+                header('Location: /admin?resultado=3&id='.$this->id.'&tipo='.$this->tipo);
+            }
         }
     }
     

@@ -6,19 +6,21 @@ use MVC\Router;
 use Model\Propiedad;
 use PHPMailer\PHPMailer\PHPMailer;
 use Model\Entrada;
+use Model\Admin;
 
 class PaginasController {
     public static function index(Router $router) {
         
         $propiedades = Propiedad::get(3);
         $entradas = Entrada::get(3);
-        
+        $usuarioId = Admin::all();
         $inicio = true;
         
         $router->render('paginas/index', [
             'propiedades' => $propiedades,
             'entradas' => $entradas,
-            'inicio' => $inicio
+            'inicio' => $inicio,
+            'usuarioId' => $usuarioId
         ]);
     }
     public static function nosotros(Router $router) {
@@ -44,9 +46,11 @@ class PaginasController {
     }
     public static function blog(Router $router) {
         $entradas = Entrada::all();
+        $usuarioId = Admin::all();
 
         $router->render('paginas/blog', [
-            'entradas' => $entradas
+            'entradas' => $entradas,
+            'usuarioId' => $usuarioId
         ]);
     }
     public static function entrada(Router $router) {
@@ -54,9 +58,11 @@ class PaginasController {
 
         // Buscar entradas blog por su id
         $entrada = Entrada::find($id);
+        $usuarioId = Admin::all();
         
         $router->render('paginas/entrada', [
-            'entrada' => $entrada
+            'entrada' => $entrada,
+            'usuarioId' => $usuarioId
         ]);
     }
 
