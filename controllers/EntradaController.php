@@ -58,7 +58,11 @@ class EntradaController {
                 $image->save(CARPETA_IMAGENES . $nombreImagen);
     
                 //Guarda en la base de datos
-                $entrada->guardar();
+                $resultado = $entrada->guardar();
+
+                if($resultado) {
+                    header('Location: /blog/admin');
+                }
                 
             }   
         }

@@ -17,7 +17,8 @@ class Propiedad extends ActiveRecord{
     public $vendedorId;
     public $tipo = 'Anuncio';
 
-    public function __construct($args = []) {
+    public function __construct($args = [])
+    {
         $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
@@ -30,35 +31,45 @@ class Propiedad extends ActiveRecord{
         $this->vendedorId = $args['vendedorId'] ?? '';
     }
 
-    public function validar(){
-        if(!$this->titulo)
-            self::$errores[] = "Debes añadir un titulo";
+    public function validar() {
 
-        if(!$this->id) {
-            self::$errores[] = "Prpiedad no encontrada";
+        if(!$this->titulo) {
+            self::$errores[] = "Debes añadir un titulo";
         }
 
-        if (!$this->precio) 
-            self::$errores[] = "El precio es obligatorio";
-            
-        if ( strlen ( $this->descripcion ) < 50)
-            self::$errores[] = "La descripción es obligatoria y debe tener al menos 50 caracteres";
+        if(!$this->precio) {
+            self::$errores[] = 'El Precio es Obligatorio';
+        }
 
-        if (!$this->habitaciones) 
-            self::$errores[] = "El número de habitaciones es obligatorio";
+        if( strlen( $this->descripcion ) < 50 ) {
+            self::$errores[] = 'La descripción es obligatoria y debe tener al menos 50 caracteres';
+        }
 
-        if (!$this->wc) 
-            self::$errores[] = "El número de baños es obligatorio";
+        if(!$this->habitaciones) {
+            self::$errores[] = 'El Número de habitaciones es obligatorio';
+        }
+        
+        if(!$this->wc) {
+            self::$errores[] = 'El Número de Baños es obligatorio';
+        }
 
-        if (!$this->estacionamiento)
-            self::$errores[] = "El número de lugares de estacionamiento es obligatorio";
+        if(!$this->estacionamiento) {
+            self::$errores[] = 'El Número de lugares de Estacionamiento es obligatorio';
+        }
+        
+        if(!$this->vendedorId) {
+            self::$errores[] = 'Elige un vendedor';
+        }
 
-        if (!$this->vendedorId) 
-            self::$errores[] = "Elige un vendedor";
-
-         if (!$this->imagen)
-             self::$errores[] = "La imagen es obligatoria";
-
+        if(!$this->id )  {
+            $this->validarImagen();
+        }
         return self::$errores;
+    }
+
+    public function validarImagen() {
+        if(!$this->imagen ) {
+            self::$errores[] = 'La Imagen es Obligatoria';
+        }
     }
 }

@@ -16,14 +16,16 @@ class ActiveRecord{
         self::$db = $database;
     }
 
-    public function guardar(){
-        if (!is_null($this->id)) {
-            //Actualizar
-            $this->actualizar();
-        } else{
-            //Creando un nuevo registro
-            $this->crear();
+    public function guardar() {
+        $resultado = '';
+        if(!is_null($this->id)) {
+            // actualizar
+            $resultado = $this->actualizar();
+        } else {
+            // Creando un nuevo registro
+            $resultado = $this->crear();
         }
+        return $resultado;
     }
 
     public function crear(){
@@ -38,13 +40,7 @@ class ActiveRecord{
         $query .= " ') ";
         $resultado = self::$db->query($query);
         //Mensaje de éxito o error
-        if ($resultado) {
-            if($this->tipo === 'Entrada') {
-                header('Location: /blog/admin?resultado=1&tipo='.$this->tipo);
-            } else {
-                header('Location: /admin?resultado=1&tipo='.$this->tipo);
-            }
-        }
+        return $resultado;
     }
 
     public function actualizar(){
