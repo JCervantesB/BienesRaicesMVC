@@ -16,53 +16,56 @@ class ActiveRecord{
         self::$db = $database;
     }
 
-    public function guardar(){
-        if (!is_null($this->id)) {
-            //Actualizar
-            $this->actualizar();
-        } else{
-            //Creando un nuevo registro
-            $this->crear();
+    public function guardar() {
+        $resultado = '';
+        if(!is_null($this->id)) {
+            // actualizar
+            $resultado = $this->actualizar();
+        } else {
+            // Creando un nuevo registro
+            $resultado = $this->crear();
         }
-    }
-
-    public function crear(){
-        //Sanitizar los datos
-        $atributos = $this->sanitizarAtributos();
-
-        //Insertar en la base de datos
-        $query = " INSERT INTO ". static::$tabla ." ( ";
-        $query .= join(', ', array_keys($atributos));  //La función array keys está retornando un string con las llaves del arreglo separados por una coma y un espacio
-        $query .= " ) VALUES('"; 
-        $query .= join("', '", array_values($atributos));  //La función array values está retornando un string con los valores del arreglo separados por una comillas, coma y un espacio
-        $query .= " ') ";
-        $resultado = self::$db->query($query);
-        //Mensaje de éxito o error
         return $resultado;
     }
 
-    public function actualizar(){
-        //Sanitizar los datos
+    // crea un nuevo registro
+    public function crear() {
+        // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
+
+        // Insertar en la base de datos
+        $query = " INSERT INTO " . static::$tabla . " ( ";
+        $query .= join(', ', array_keys($atributos));
+        $query .= " ) VALUES (' "; 
+        $query .= join("', '", array_values($atributos));
+        $query .= " ') ";
+
+        // Resultado de la consulta
+        $resultado = self::$db->query($query);
+
+        return $resultado;
+    }
+
+    public function actualizar() {
+
+        // Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+
         $valores = [];
-        foreach ($atributos as $key => $value) {
-            $valores [] = "{$key}='{$value}'";
+        foreach($atributos as $key => $value) {
+            $valores[] = "{$key}='{$value}'";
         }
-        
-        $query = " UPDATE ". static::$tabla ." SET ";
-        $query .= join(', ', $valores);
-        $query .= " WHERE id = '". self::$db->escape_string($this->id). "' ";
-        $query .= " LIMIT 1 ";
+
+        $query = "UPDATE " . static::$tabla ." SET ";
+        $query .=  join(', ', $valores );
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " LIMIT 1 "; 
 
         $resultado = self::$db->query($query);
-        if ($resultado) {
-            if($this->tipo === 'Entrada') {
-                header('Location: /blog/admin?resultado=2&id='.$this->id.'&tipo='.$this->tipo);
-            } else {
-                header('Location: /admin?resultado=2&id='.$this->id.'&tipo='.$this->tipo);
-            }
-        }
+
+        return $resultado;
     }
+
 
     //Eliminar un registro
     public function eliminar(){
