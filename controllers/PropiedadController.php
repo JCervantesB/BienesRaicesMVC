@@ -32,6 +32,9 @@ class PropiedadController {
 
             /* Crea una nueva instancia */
             $propiedad = new Propiedad($_POST['propiedad']);
+
+            // generar id
+            $propiedad->id = Propiedad::generarId();
             
             /** Subida de archivos **/
             //Generar un nombre único

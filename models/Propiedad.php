@@ -30,6 +30,25 @@ class Propiedad extends ActiveRecord{
         $this->vendedorId = $args['vendedorId'] ?? '';
     }
 
+    // Generar id consecutivo
+    public static function generarId() {
+        $ultimo = self::last();
+        if ($ultimo) {
+            return $ultimo->id + 1;
+        } else {
+            return 1;
+        }
+    }
+
+    // Obtener último registro de la tabla con myqli_fetch_assoc()
+    public static function last() {
+        $db = conectarDB();
+        $sql = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT 1";
+        $result = $db->query($sql);
+        $db->close();
+        return $result->fetch_assoc();
+    }
+
     public function validar(){
         if(!$this->titulo)
             self::$errores[] = "Debes añadir un titulo";
