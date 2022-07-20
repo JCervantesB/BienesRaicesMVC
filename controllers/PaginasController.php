@@ -1,158 +1,136 @@
-<?php 
+<?php
 
 namespace Controllers;
 
 use MVC\Router;
 use Model\Propiedad;
-use Model\Vendedor;
-use Intervention\Image\ImageManagerStatic as Image;
+use PHPMailer\PHPMailer\PHPMailer;
+use Model\Entrada;
+use Model\Admin;
 
-class PropiedadController  {
-    
+class PaginasController {
     public static function index(Router $router) {
-        $propiedades = Propiedad::all();
-        $vendedores = Vendedor::all();
-
-        // Muestra mensaje condicional
-        $resultado = $_GET['resultado'] ?? null;
-
-        $router->render('propiedades/index', [
+        
+        $propiedades = Propiedad::get(3);
+        $entradas = Entrada::get(3);
+        $usuarioId = Admin::all();
+        $inicio = true;
+        
+        $router->render('paginas/index', [
             'propiedades' => $propiedades,
-            'vendedores' => $vendedores,
-            'resultado' => $resultado
+            'entradas' => $entradas,
+            'inicio' => $inicio,
+            'usuarioId' => $usuarioId
         ]);
     }
-
-    public static function crear(Router $router) {
-
-        $errores = Propiedad::getErrores();
-        $propiedad = new Propiedad;
-        $vendedores = Vendedor::all();
-
-        // Ejecutar el código después de que el usuario envia el formulario
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-            /** Crea una nueva instancia */
-            $propiedad = new Propiedad($_POST['propiedad']);
-
-            // Generar un nombre único
-            $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
-
-
-            // Setear la imagen
-            // Realiza un resize a la imagen con intervention
-            if($_FILES['propiedad']['tmp_name']['imagen']) {
-                $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
-                $propiedad->setImagen($nombreImagen);
-            }
-
-            // Validar
-            $errores = $propiedad->validar();
-            if(empty($errores)) {
-
-                // Crear la carpeta para subir imagenes
-                if(!is_dir(CARPETA_IMAGENES)) {
-                    mkdir(CARPETA_IMAGENES);
-                }
-
-                // Guarda la imagen en el servidor
-                $image->save(CARPETA_IMAGENES . $nombreImagen);
-
-                // Guarda en la base de datos
-                $resultado = $propiedad->guardar();
-
-                if($resultado) {
-                    header('location: /propiedades');
-                }
-            }
-        }
-
-        $router->render('propiedades/crear', [
-            'errores' => $errores,
-            'propiedad' => $propiedad,
-            'vendedores' => $vendedores
+    public static function nosotros(Router $router) {
+        
+        $router->render('paginas/nosotros');
+    }
+    public static function propiedades(Router $router) {
+       
+        $propiedades = Propiedad::all();
+        $router->render('paginas/propiedades', [
+            'propiedades' => $propiedades
         ]);
     }
-
-    public static function actualizar(Router $router) {
-
+    public static function propiedad(Router $router) {
         $id = validarORedireccionar('/propiedades');
 
-        // Obtener los datos de la propiedad
+        // Buscar propiedad por su id
         $propiedad = Propiedad::find($id);
-
-        // Consultar para obtener los vendedores
-        $vendedores = Vendedor::all();
-
-        // Arreglo con mensajes de errores
-        $errores = Propiedad::getErrores();
-
         
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $router->render('paginas/propiedad', [
+            'propiedad' => $propiedad
+        ]);
+    }
+    public static function blog(Router $router) {
+        $entradas = Entrada::all();
+        $usuarioId = Admin::all();
 
-                // Asignar los atributos
-                $args = $_POST['propiedad'];
+        $router->render('paginas/blog', [
+            'entradas' => $entradas,
+            'usuarioId' => $usuarioId
+        ]);
+    }
+    public static function entrada(Router $router) {
+        $id = validarORedireccionar('/blog');
 
-                $propiedad->sincronizar($args);
-
-                // Validación
-                $errores = $propiedad->validar();
-
-                // Subida de archivos
-                // Generar un nombre único
-                $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
-
-                if($_FILES['propiedad']['tmp_name']['imagen']) {
-                    $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
-                    $propiedad->setImagen($nombreImagen);
-                }
-
-
-                
-                if(empty($errores)) {
-                    // Almacenar la imagen
-                    if($_FILES['propiedad']['tmp_name']['imagen']) {
-                        $image->save(CARPETA_IMAGENES . $nombreImagen);
-                    }
-
-                    // Guarda en la base de datos
-                    $resultado = $propiedad->guardar();
-
-                    if($resultado) {
-                        header('location: /propiedades');
-                    }
-                }
-
-        }
-
-        $router->render('propiedades/actualizar', [
-            'propiedad' => $propiedad,
-            'vendedores' => $vendedores,
-            'errores' => $errores
+        // Buscar entradas blog por su id
+        $entrada = Entrada::find($id);
+        $usuarioId = Admin::all();
+        
+        $router->render('paginas/entrada', [
+            'entrada' => $entrada,
+            'usuarioId' => $usuarioId
         ]);
     }
 
-    public static function eliminar(Router $router) {
+    public static function contacto(Router $router) {
+        $mensaje = null;
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $tipo = $_POST['tipo'];
+            
+            $respuestas = $_POST['contacto'];
+            
+            // Crear una nueva instancia PHPMailer
+            $mail = new PHPMailer();
 
-            // peticiones validas
-            if(validarTipoContenido($tipo) ) {
-                // Leer el id
-                $id = $_POST['id'];
-                $id = filter_var($id, FILTER_VALIDATE_INT);
-    
-                // encontrar y eliminar la propiedad
-                $propiedad = Propiedad::find($id);
-                $resultado = $propiedad->eliminar();
+            // Configurar SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.mailtrap.io';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'd910a798db45e3';
+            $mail->Password = '0909c36e7491be';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = '2525';
 
-                // Redireccionar
-                if($resultado) {
-                    header('location: /propiedades');
-                }
+            // Contenido del email
+            $mail->setFrom('info@bienesraices.com');
+            $mail->addAddress('info@bienesraices.com', 'BienesRaices.com');
+            $mail->Subject = 'Tienes un Nuevo Mensaje';
+
+            // Habilitar HTML
+            $mail->isHTML(true);
+            $mail->CharSet = 'UTF-8';
+            
+            //Definir Contenido
+            $contenido = '<html>';
+            $contenido .= '<p> Tienes un nuevo mensaje de:</p>';
+            $contenido .= '<p> Nombre: ' . $respuestas['nombre'] . ' </p>';
+            $contenido .= '<p> Vende/Compra: ' . $respuestas['tipo'] . ' </p>';
+            $contenido .= '<p> Precio/Presupuesto: $' . $respuestas['precio'] . ' </p>';
+
+            $contenido .= '<p> Mensaje: ' . $respuestas['mensaje'] . ' </p> <br>';
+           
+            // Enviar de forma condicional algunos campos de email o teléfono
+            if($respuestas['contacto'] === 'telefono') {
+                $contenido .= '<p> Eligió ser contactado por teléfono. </p>';
+                $contenido .= '<p> Teléfono: ' . $respuestas['telefono'] . ' </p>';
+                $contenido .= '<p> Fecha para contacto: ' . $respuestas['fecha'] . ' </p>';
+                $contenido .= '<p> Hora de contacto: ' . $respuestas['hora'] . ' </p>';             
+               
+            } else {
+                // Es email, entonces agregamos campos de email
+                $contenido .= '<p> Eligió ser contactado por email. </p>';
+                $contenido .= '<p> Email: ' . $respuestas['email'] . ' </p>';
             }
-        }
-    }
+            $contenido .= '</html>';
 
+            $mail->Body = $contenido;
+            $mail->AltBody = 'Esto es un texto sin HTML';
+
+            // Enviar el email
+            if($mail->send()) {
+                $mensaje = "Mensaje enviado correctamente";
+            } else {
+                $mensaje = "El mensaje no se pudo enviar";
+            }
+
+        }
+        
+        $router->render('paginas/contacto', [
+            'mensaje' => $mensaje
+        ]);
+    }
 }
