@@ -20,7 +20,7 @@ class ActiveRecord{
         if (!is_null($this->id)) {
             //Actualizar
             $this->actualizar();
-        } else{
+        } else {
             //Creando un nuevo registro
             $this->crear();
         }
