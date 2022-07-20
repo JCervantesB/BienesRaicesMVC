@@ -56,8 +56,12 @@ class PropiedadController {
                 //Guarda la imagen en el servidor
                 $image->save(CARPETA_IMAGENES . $nombreImagen);
     
-                //Guarda en la base de datos
-                $propiedad->guardar();
+                // Guarda en la base de datos
+                $resultado = $propiedad->guardar();
+
+                if($resultado) {
+                    header('location: /propiedades');
+                }
                 
             }   
         }
