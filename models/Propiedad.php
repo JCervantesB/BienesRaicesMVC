@@ -18,7 +18,7 @@ class Propiedad extends ActiveRecord{
     public $tipo = 'Anuncio';
 
     public function __construct($args = []) {
-        $this->id = $args['id'] ?? null;
+        $this->id = $args['id'] ?? $this->generarId();
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
