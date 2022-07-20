@@ -35,7 +35,7 @@ class Propiedad extends ActiveRecord{
             self::$errores[] = "Debes añadir un titulo";
 
         if(!$this->id)
-            self::$errores[] = "Prpiedad no encontrada";
+            self::$errores[] = "Propiedad no encontrada";
 
         if (!$this->precio) 
             self::$errores[] = "El precio es obligatorio";
