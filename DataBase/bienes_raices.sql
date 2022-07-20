@@ -18,7 +18,7 @@ CREATE TABLE `blog` (
   PRIMARY KEY (`id`),
   KEY `usuarioId_idx` (`usuarioId`),
   CONSTRAINT `usuarioId` FOREIGN KEY (`usuarioId`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE `cliente` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -41,7 +41,7 @@ CREATE TABLE `propiedades` (
   PRIMARY KEY (`id`),
   KEY `vendedorId_idx` (`vendedorId`),
   CONSTRAINT `vendedorId` FOREIGN KEY (`vendedorId`) REFERENCES `vendedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `usuarios` (
   `id` int NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `vendedores` (
   `apellido` varchar(45) DEFAULT NULL,
   `telefono` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
 
 
 
