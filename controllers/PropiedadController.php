@@ -32,7 +32,7 @@ class PropiedadController {
 
             /* Crea una nueva instancia */
             $propiedad = new Propiedad($_POST['propiedad']);
-            
+    
             /** Subida de archivos **/
             //Generar un nombre único
             $nombreImagen = md5( uniqid( rand(), true) ) . ".jpg";
@@ -55,7 +55,7 @@ class PropiedadController {
                 }
                 //Guarda la imagen en el servidor
                 $image->save(CARPETA_IMAGENES . $nombreImagen);
-                
+    
                 //Guarda en la base de datos
                 $propiedad->guardar();
                 

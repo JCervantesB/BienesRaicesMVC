@@ -18,7 +18,7 @@ class Propiedad extends ActiveRecord{
     public $tipo = 'Anuncio';
 
     public function __construct($args = []) {
-        $this->id = $args['id'] ?? $this->generarId();
+        $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? '';
@@ -30,30 +30,12 @@ class Propiedad extends ActiveRecord{
         $this->vendedorId = $args['vendedorId'] ?? '';
     }
 
-    // Obtener último registro de la tabla con myqli_fetch_assoc()
-    public static function last() {
-        $db = conectarDB();
-        $sql = "SELECT * FROM " . static::$tabla . " ORDER BY id DESC LIMIT 1";
-        $result = $db->query($sql);
-        $db->close();
-        return $result->fetch_assoc();
-    }
-    // Generar un id consecutivo
-    public static function generarId() {
-        $last = static::last();
-        if ($last) {
-            return $last['id'] + 1;
-        } else {
-            return 1;
-        }
-    }
-
     public function validar(){
         if(!$this->titulo)
             self::$errores[] = "Debes añadir un titulo";
 
         if(!$this->id)
-            self::$errores[] = "Propiedad no encontrada";
+            self::$errores[] = "Prpiedad no encontrada";
 
         if (!$this->precio) 
             self::$errores[] = "El precio es obligatorio";
