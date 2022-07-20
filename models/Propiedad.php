@@ -30,16 +30,6 @@ class Propiedad extends ActiveRecord{
         $this->vendedorId = $args['vendedorId'] ?? '';
     }
 
-    // Generar id consecutivo
-    public static function generarId() {
-        $ultimo = self::last();
-        if ($ultimo) {
-            return $ultimo->id + 1;
-        } else {
-            return 1;
-        }
-    }
-
     // Obtener último registro de la tabla con myqli_fetch_assoc()
     public static function last() {
         $db = conectarDB();
@@ -47,6 +37,15 @@ class Propiedad extends ActiveRecord{
         $result = $db->query($sql);
         $db->close();
         return $result->fetch_assoc();
+    }
+    // Generar un id consecutivo
+    public static function generarId() {
+        $last = static::last();
+        if ($last) {
+            return $last['id'] + 1;
+        } else {
+            return 1;
+        }
     }
 
     public function validar(){
