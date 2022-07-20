@@ -80,14 +80,14 @@ class PaginasController {
             $mail->isSMTP();
             $mail->Host = 'smtp.mailtrap.io';
             $mail->SMTPAuth = true;
-            $mail->Username = '6d8136a7f04937';
-            $mail->Password = '5573e4fb33dd5b';
+            $mail->Username = 'd910a798db45e3';
+            $mail->Password = '0909c36e7491be';
             $mail->SMTPSecure = 'tls';
             $mail->Port = '2525';
 
             // Contenido del email
-            $mail->setFrom('admin@solucioncb.com');
-            $mail->addAddress('admin@solucioncb.com', 'BienesRaices.com');
+            $mail->setFrom('info@bienesraices.com');
+            $mail->addAddress('info@bienesraices.com', 'BienesRaices.com');
             $mail->Subject = 'Tienes un Nuevo Mensaje';
 
             // Habilitar HTML
@@ -108,8 +108,8 @@ class PaginasController {
                 $contenido .= '<p> Eligió ser contactado por teléfono. </p>';
                 $contenido .= '<p> Teléfono: ' . $respuestas['telefono'] . ' </p>';
                 $contenido .= '<p> Fecha para contacto: ' . $respuestas['fecha'] . ' </p>';
-                $contenido .= '<p> Hora de contacto: ' . $respuestas['hora'] . ' </p>';
-
+                $contenido .= '<p> Hora de contacto: ' . $respuestas['hora'] . ' </p>';             
+               
             } else {
                 // Es email, entonces agregamos campos de email
                 $contenido .= '<p> Eligió ser contactado por email. </p>';

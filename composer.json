@@ -18,6 +18,7 @@
     ],
     "require": {
         "intervention/image": "^2.6",
-        "phpmailer/phpmailer": "^6.5"
+        "phpmailer/phpmailer": "^6.5",
+        "ext-gd": "*"
     }
 }

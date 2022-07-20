@@ -15,3 +15,5 @@ node_modules
 
 # Ignora la carpeta Imagenes en public
 public/imagenes/
+
+cypress

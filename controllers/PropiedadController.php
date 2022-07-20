@@ -71,8 +71,13 @@ class PropiedadController {
     
     public static function actualizar(Router $router) {
         $id = validarORedireccionar('/admin');
-
+        
         $propiedad = Propiedad::find($id);
+        // redireccionar si el id no existe o es menor a 1
+        if (!$propiedad || $id < 1) {
+            header('Location: /admin');    
+        }
+        
         $errores = Propiedad::getErrores();
         $vendedores = Vendedor::all();
 
@@ -81,7 +86,7 @@ class PropiedadController {
             //Asignar los atributos
             $args = $_POST['propiedad'];
             $propiedad->sincronizar($args);
-    
+            
             $errores = $propiedad->validar();
             
             //Revisar que el arreglo de errores esté vacío
@@ -116,10 +121,10 @@ class PropiedadController {
 
     public static function eliminar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            //Validar ID
             $id = $_POST['id'];
             $id = filter_var($id, FILTER_VALIDATE_INT);
     
-            //Validar ID
             if ($id) {
                 $tipo = $_POST['tipo'];
                 if(validarTipoContenido($tipo)){

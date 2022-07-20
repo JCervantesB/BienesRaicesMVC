@@ -10,8 +10,7 @@ function incluirTemplate(string $nombre, bool $inicio = false ){
 
 function estaAutenticado(){
     session_start();
-    if (!$_SESSION['login'])
-        header('Location: /');
+    var_dump($_SESSION);
 }
 
 function debuguear($variable){

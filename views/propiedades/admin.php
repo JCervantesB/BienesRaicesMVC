@@ -20,17 +20,20 @@
                     <th>Título</th>
                     <th>Imagen</th>
                     <th>Precio</th>
+                    <th>Vendedor</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
 
             <tbody>  <!--Mostrar los resultados-->
                 <?php foreach( $propiedades as $propiedad): ?>
+                    <?php foreach( $vendedores as $vendedor): ?>
                     <tr>
                         <td><?php echo $propiedad->id; ?></td>
                         <td><?php echo $propiedad->titulo; ?></td>
                         <td><img src="/imagenes/<?php echo $propiedad->imagen; ?>" class="imagen-tabla" alt=""></td>
                         <td><?php echo "$". $propiedad->precio; ?></td>
+                        <td><?php echo $vendedor->nombre . ' ' . $vendedor->apellido; ?></td>
                         <td>
                             <form method="POST" class="w-100" action="/propiedades/eliminar">
                                 <input type="hidden" name="id" value="<?php echo $propiedad->id; ?>">
@@ -46,6 +49,7 @@
                             </a>
                         </td>
                     </tr>
+                    <?php endforeach; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>
