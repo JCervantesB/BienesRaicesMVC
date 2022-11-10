@@ -2,7 +2,7 @@
     
     <h1><?php echo $propiedad->titulo; ?></h1>
 
-    <img loading="lazy" src="/imagenes/<?php echo $propiedad->imagen; ?>" alt="Anuncio">
+    <img src="/imagenes/<?php echo $propiedad->imagen; ?>.webp" alt="Anuncio" loading="lazy">
     
     <div class="resumen-propiedad">
         <p class="precio">$<?php echo $propiedad->precio; ?></p>
