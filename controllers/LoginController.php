@@ -7,7 +7,7 @@ use Model\Admin;
 
 class LoginController {
     //Login
-    public static function login(Router $router) {
+    public static function login(Router $router) {        
         $errores = [];
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -45,7 +45,7 @@ class LoginController {
     public static function logout() {
         session_start();
         
-        $_SESSION = [];
+        session_destroy();
         header('Location: /');
     }
 }

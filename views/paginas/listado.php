@@ -1,7 +1,7 @@
 <div class="contenedor-anuncios">
     <?php foreach($propiedades as $propiedad): ?>
     <div class="anuncio">
-        <img src="/imagenes/<?php echo $propiedad->imagen; ?>" alt="Anuncio" loading="lazy">
+        <img src="/imagenes/<?php echo $propiedad->imagen; ?>.webp" alt="Anuncio" loading="lazy">
 
         <div class="contenido-anuncio">
             <h3><?php echo $propiedad->titulo; ?></h3>

@@ -40,6 +40,9 @@ class Propiedad extends ActiveRecord{
         if(!$this->precio) {
             self::$errores[] = 'El Precio es Obligatorio';
         }
+        if(strlen($this->precio) > 8) {
+            self::$errores[] = 'El Precio es muy largo';
+        }
 
         if( strlen( $this->descripcion ) < 50 ) {
             self::$errores[] = 'La descripción es obligatoria y debe tener al menos 50 caracteres';

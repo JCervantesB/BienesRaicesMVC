@@ -10,7 +10,6 @@
   "license": "ISC",
   "devDependencies": {
     "cssnano": "^5.1.0",
-    "cypress": "^6.8.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
     "gulp-cache": "^1.1.3",
@@ -29,6 +28,7 @@
     "terser": "^4.8.0"
   },
   "dependencies": {
+    "cypress": "^6.8.0",
     "nvm": "^0.0.4"
   }
 }

@@ -35,12 +35,14 @@ class PropiedadController {
     
             /** Subida de archivos **/
             //Generar un nombre único
-            $nombreImagen = md5( uniqid( rand(), true) ) . ".jpg";
+            $nombreImagen = md5( uniqid( rand(), true) );
     
             /*Setear la imagen*/
             //Realiza un resize a la imagen con intervention
             if ($_FILES['propiedad']['tmp_name']['imagen']) {
-                $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+                $imageWebp = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600)->encode('webp', 90);
+                $imageJpg = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+
                 $propiedad->setImagen($nombreImagen);
             }
     
@@ -54,7 +56,8 @@ class PropiedadController {
                     mkdir(CARPETA_IMAGENES);
                 }
                 //Guarda la imagen en el servidor
-                $image->save(CARPETA_IMAGENES . $nombreImagen);
+                $imageWebp->save(CARPETA_IMAGENES . $nombreImagen . ".webp"); 
+                $imageJpg->save(CARPETA_IMAGENES . $nombreImagen . ".jpg"); 
     
                 // Guarda en la base de datos
                 $resultado = $propiedad->guardar();
